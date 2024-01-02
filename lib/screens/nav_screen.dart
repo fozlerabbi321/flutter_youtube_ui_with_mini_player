@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_youtube_ui/data.dart';
 import 'package:flutter_youtube_ui/screens/home_screen.dart';
@@ -148,97 +150,100 @@ class _NavScreenState extends State<NavScreen> {
           ValueListenableBuilder(
             valueListenable: selectedVideo2,
             builder: (BuildContext context, Video? video,
-                Widget? child) =>
-            video != null ? Offstage(
-              offstage: selectedVideo2.value == null,
-              child: Miniplayer(
-                valueNotifier: playerExpandProgress,
-                controller: miniController,
-                minHeight: playerMinHeight,
-                maxHeight: MediaQuery.of(context).size.height,
-                builder: (height, percentage) {
-                  if ( selectedVideo2.value == null)
-                    return const SizedBox.shrink();
+                Widget? child) {
+              return Offstage(
+                offstage: video == null,
+                child: Miniplayer(
+                  valueNotifier: playerExpandProgress,
+                  controller: miniController,
+                  minHeight: playerMinHeight,
+                  maxHeight: MediaQuery.of(context).size.height,
+                  onDismissed: () => selectedVideo2.value = null,
+                  builder: (height, percentage) {
+                    log('log percentage $percentage');
+                    if ( selectedVideo2.value == null)
+                      return const SizedBox.shrink();
 
-                  if (height <= playerMinHeight + 50.0)
-                    return Container(
-                      color: Theme.of(context).scaffoldBackgroundColor,
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Image.network(
-                                selectedVideo2.value!.thumbnailUrl,
-                                height: playerMinHeight - 4.0,
-                                width: 120.0,
-                                fit: BoxFit.cover,
-                              ),
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Flexible(
-                                        child: Text(
-                                          selectedVideo2.value!.title,
-                                          overflow:
-                                          TextOverflow.ellipsis,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .caption!
-                                              .copyWith(
-                                            color: Colors.white,
-                                            fontWeight:
-                                            FontWeight.w500,
+                    if (height <= playerMinHeight + 50.0)
+                      return Container(
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Image.network(
+                                  selectedVideo2.value!.thumbnailUrl,
+                                  height: playerMinHeight - 4.0,
+                                  width: 120.0,
+                                  fit: BoxFit.cover,
+                                ),
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Flexible(
+                                          child: Text(
+                                            selectedVideo2.value!.title,
+                                            overflow:
+                                            TextOverflow.ellipsis,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .caption!
+                                                .copyWith(
+                                              color: Colors.white,
+                                              fontWeight:
+                                              FontWeight.w500,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      Flexible(
-                                        child: Text(
-                                          selectedVideo2.value!.author.username,
-                                          overflow:
-                                          TextOverflow.ellipsis,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .caption!
-                                              .copyWith(
-                                              fontWeight:
-                                              FontWeight.w500),
+                                        Flexible(
+                                          child: Text(
+                                            selectedVideo2.value!.author.username,
+                                            overflow:
+                                            TextOverflow.ellipsis,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .caption!
+                                                .copyWith(
+                                                fontWeight:
+                                                FontWeight.w500),
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                              IconButton(
-                                icon: const Icon(Icons.play_arrow),
-                                onPressed: () {},
-                              ),
-                              IconButton(
-                                icon: const Icon(Icons.close),
-                                onPressed: () {
-                                  selectedVideo2.value = null;
-                                  // context.read(selectedVideoProvider).state = null;
-                                },
-                              ),
-                            ],
-                          ),
-                          const LinearProgressIndicator(
-                            value: 0.4,
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                              Colors.red,
+                                IconButton(
+                                  icon: const Icon(Icons.play_arrow),
+                                  onPressed: () {},
+                                ),
+                                IconButton(
+                                  icon: const Icon(Icons.close),
+                                  onPressed: () {
+                                    selectedVideo2.value = null;
+                                    // context.read(selectedVideoProvider).state = null;
+                                  },
+                                ),
+                              ],
                             ),
-                          ),
-                        ],
-                      ),
-                    );
-                  return VideoScreen();
-                },
-              ),
-            ) : const SizedBox.shrink(),
+                            const LinearProgressIndicator(
+                              value: 0.4,
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                Colors.red,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    return VideoScreen();
+                  },
+                ),
+              );
+            },
           ),
         ],
       ),
