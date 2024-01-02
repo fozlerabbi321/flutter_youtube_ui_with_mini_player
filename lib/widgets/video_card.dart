@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_youtube_ui/data.dart';
 import 'package:flutter_youtube_ui/screens/nav_screen.dart';
 import 'package:miniplayer/miniplayer.dart';
@@ -21,11 +20,10 @@ class VideoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.read(selectedVideoProvider).state = video;
-        context
-            .read(miniPlayerControllerProvider)
-            .state
-            .animateToHeight(state: PanelState.MAX);
+        // context.read(selectedVideoProvider).state = video;
+        selectedVideo2.value = video;
+        // context.read(miniPlayerControllerProvider).state.animateToHeight(state: PanelState.MAX);
+        miniController.animateToHeight(state: PanelState.MAX);
         if (onTap != null) onTap!();
       },
       child: Column(

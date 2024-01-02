@@ -54,35 +54,11 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_riverpod:
-    dependency: "direct main"
-    description:
-      name: flutter_riverpod
-      sha256: "76b11ba12801ea5170d2a6c3f613fc76abdb27df6c3522edb28c2f7e78d3797e"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.13.1+1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
     source: sdk
     version: "0.0.0"
-  freezed_annotation:
-    dependency: transitive
-    description:
-      name: freezed_annotation
-      sha256: "07568a2bb30ec39b2ec2bbd308c8f1552375787f4c8f443c07e50e66d9c97d0d"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.14.1"
-  json_annotation:
-    dependency: transitive
-    description:
-      name: json_annotation
-      sha256: fd56fb29e3f02cd9bef80e99e9491d27889fb010f98ff3379b21e7d40d0112b3
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.0.1"
   matcher:
     dependency: transitive
     description:
@@ -123,14 +99,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.3"
-  riverpod:
-    dependency: transitive
-    description:
-      name: riverpod
-      sha256: ca4ef57a23c113420ee9998063effab9c8b1d7142279bd16422a0f08203c79c6
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.13.1"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -152,14 +120,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.11.0"
-  state_notifier:
-    dependency: transitive
-    description:
-      name: state_notifier
-      sha256: "629c10533982f40660197f5d2d0884b3ab58a1f6a7e72b16a8aefea6c1e9054a"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.7.0"
   stream_channel:
     dependency: transitive
     description:
@@ -218,4 +178,3 @@ packages:
     version: "0.1.4-beta"
 sdks:
   dart: ">=3.1.0-185.0.dev <4.0.0"
-  flutter: ">=1.17.0"

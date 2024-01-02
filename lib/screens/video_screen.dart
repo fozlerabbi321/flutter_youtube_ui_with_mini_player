@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_youtube_ui/data.dart';
 import 'package:flutter_youtube_ui/screens/nav_screen.dart';
 import 'package:flutter_youtube_ui/widgets/widgets.dart';
@@ -28,10 +27,10 @@ class _VideoScreenState extends State<VideoScreen> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context
-          .read(miniPlayerControllerProvider)
-          .state
-          .animateToHeight(state: PanelState.MAX),
+      onTap: () {
+        // context.read(miniPlayerControllerProvider).state.animateToHeight(state: PanelState.MAX);
+        miniController.animateToHeight(state: PanelState.MAX);
+      },
       child: Scaffold(
         body: Container(
           color: Theme.of(context).scaffoldBackgroundColor,
@@ -40,9 +39,10 @@ class _VideoScreenState extends State<VideoScreen> {
             shrinkWrap: true,
             slivers: [
               SliverToBoxAdapter(
-                child: Consumer(
-                  builder: (context, watch, _) {
-                    final selectedVideo = watch(selectedVideoProvider).state;
+                child: ValueListenableBuilder(
+                  valueListenable: selectedVideo2,
+                  builder: (BuildContext context, Video? video, Widget? child) {
+                    final selectedVideo = video;
                     return SafeArea(
                       child: Column(
                         children: [
@@ -57,10 +57,10 @@ class _VideoScreenState extends State<VideoScreen> {
                               IconButton(
                                 iconSize: 30.0,
                                 icon: const Icon(Icons.keyboard_arrow_down),
-                                onPressed: () => context
-                                    .read(miniPlayerControllerProvider)
-                                    .state
-                                    .animateToHeight(state: PanelState.MIN),
+                                onPressed: () {
+                                  miniController.animateToHeight(state: PanelState.MIN);
+                                  // context.read(miniPlayerControllerProvider).state.animateToHeight(state: PanelState.MIN);
+                                },
                               ),
                             ],
                           ),
@@ -74,7 +74,7 @@ class _VideoScreenState extends State<VideoScreen> {
                         ],
                       ),
                     );
-                  },
+                  }
                 ),
               ),
               SliverList(
